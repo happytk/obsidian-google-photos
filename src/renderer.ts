@@ -111,7 +111,7 @@ export class GridView extends Renderer {
     this.titleEl.className = 'google-photos-album-title'
     this.titleEl.innerText = title || ''
     this.gridEl = this.containerEl.createEl('div')
-    this.gridEl.className = "gp-grid-layout"
+    // this.gridEl.className = "gp-grid-layout"
     // Add the loading spinner
     this.containerEl.appendChild(this.spinner)
     this.spinner.style.display = 'block'
@@ -130,7 +130,7 @@ export class GridView extends Renderer {
     const oldGrid = this.gridEl
     oldGrid.empty()
     this.gridEl = document.createElement('div')
-    this.gridEl.className = "gp-grid-layout"
+    // this.gridEl.className = "gp-grid-layout"
     this.containerEl.replaceChild(this.gridEl, oldGrid)
     this.active = true
     this.fetching = false

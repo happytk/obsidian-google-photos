@@ -13,8 +13,7 @@ export default class GooglePhotos extends Plugin {
     settings: GooglePhotosSettings
     photosApi: PhotosApi
     oauth: OAuth
-    currentFile: string | undefined;
-    currentFilePath: string | undefined;
+    googlePhotoMoment: moment.Moment | undefined;
 
     async onload () {
     await this.loadSettings()
@@ -85,8 +84,7 @@ export default class GooglePhotos extends Plugin {
       let view: FileView = this.app.workspace.getActiveFileView();
       if (!view || !view.file) return;
 
-      this.currentFile = view.file.name;
-      this.currentFilePath = view.file.path;
+      this.googlePhotoMoment = this.getNoteDate(view.file);
       this.refresh();
     }));
 
@@ -97,7 +95,7 @@ export default class GooglePhotos extends Plugin {
 
     this.addCommand({
 			id: "open-daily-google-photo-pane",
-			name: "open-daily-google-photo-pane",
+			name: "Open daily GooglePhotos pane",
 			callback: () => {
 				this.activateView();
 			}
