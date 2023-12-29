@@ -1,6 +1,7 @@
 .google-photos-grid-thumbnail {
     margin: 0 2px;
     padding: 0;
+    cursor: pointer;
 }
 
 .google-photos-codeblock {

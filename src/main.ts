@@ -4,6 +4,7 @@ import OAuth from './oauth'
 import { GooglePhotosSettingTab, GooglePhotosSettings, DEFAULT_SETTINGS, GetDateFromOptions } from './settings'
 import { DailyPhotosModal } from './photoModal'
 import { DailyPhotosView } from './view'
+import { ThumbnailImage } from './renderer'
 import AlbumSuggest from './suggesters/AlbumSuggest'
 import CodeblockProcessor from './codeblockProcessor'
 
@@ -14,6 +15,8 @@ export default class GooglePhotos extends Plugin {
     photosApi: PhotosApi
     oauth: OAuth
     googlePhotoMoment: moment.Moment | undefined;
+    googlePhoto: ThumbnailImage | undefined;
+    viewFile: TFile | undefined;
 
     async onload () {
     await this.loadSettings()
@@ -85,12 +88,13 @@ export default class GooglePhotos extends Plugin {
       if (!view || !view.file) return;
 
       this.googlePhotoMoment = this.getNoteDate(view.file);
+      this.viewFile = view.file;
       this.refresh();
     }));
 
     this.registerView(
-        VIEW_TYPE,
-        (leaf) => new DailyPhotosView(leaf, this),
+      VIEW_TYPE,
+      (leaf) => new DailyPhotosView(leaf, this),
     );
 
     this.addCommand({
@@ -152,5 +156,5 @@ export default class GooglePhotos extends Plugin {
 
     async refresh() {
         // todo: triggering to update pane
-      }
+    }
 }
