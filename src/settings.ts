@@ -437,6 +437,42 @@ export class GooglePhotosSettingTab extends PluginSettingTab {
             this.display()
           }
         })
+
+      new Setting(containerEl)
+        .setName('ImageGrid settings')
+        .setHeading()
+      new Setting(containerEl)
+        .setName('Thumbnail width for ImageGrid')
+        .setDesc('Maximum width of the display thumbnail image in pixels')
+        .addText(text => text
+          .setPlaceholder(DEFAULT_SETTINGS.displayThumbnailWidth.toString())
+          .setValue(this.plugin.settings.displayThumbnailWidth.toString())
+          .onChange(async value => {
+            this.plugin.settings.displayThumbnailWidth = +value
+            await this.plugin.saveSettings()
+          }))
+      new Setting(containerEl)
+        .setName('Thumbnail height for ImageGrid')
+        .setDesc('Maximum height of the display thumbnail image in pixels')
+        .addText(text => text
+          .setPlaceholder(DEFAULT_SETTINGS.displayThumbnailHeight.toString())
+          .setValue(this.plugin.settings.displayThumbnailHeight.toString())
+          .onChange(async value => {
+            this.plugin.settings.displayThumbnailHeight = +value
+            await this.plugin.saveSettings()
+          }))
+        new Setting(containerEl)
+          .setName('Thumbnail crop for ImageGrid')
+          .setDesc('Crop image. It is useful if you want to adjust all photos as same size')
+          .addToggle(toggle => {
+              toggle
+                .setValue(this.plugin.settings.displayThumbnailCrop)
+                .onChange(async value => {
+                  this.plugin.settings.displayThumbnailCrop = value
+                  await this.plugin.saveSettings()
+                  this.display()
+                })
+            })
     }
   }
 }
